@@ -1,0 +1,32 @@
+<?
+//Upate reports table and delete request data
+require_once('../Config/auth.php');
+include "../Config/db.inc.php";
+
+//grab the HLR user changing the numbers
+$hlruser = $_SESSION['SESS_USER_LOGIN'];
+
+
+$i=0;
+$size = count($_POST['checkbox']);
+while ($i < $size){
+$checkbox = $_POST['checkbox'][$i];
+
+//update the hlr_request table to have the id of the current hlr tech
+$hlrsql = "UPDATE sim_replacement SET switch_tech = '$hlruser', status = 'Done'  WHERE id = '$checkbox' LIMIT 1";
+mysql_query($hlrsql);
+//$sql = "INSERT INTO sim_replacement_history  SELECT * FROM sim_replacement WHERE id = '$checkbox'";
+$sql = "INSERT INTO report (Customer_Name,Existing_Number,Requested_Number,Location,date,time,status,operator,in_tech,hlr_tech,Address,NIN,active,sales_channel,receipt_no,nationality,DOB)
+SELECT Customer_Name,Existing_Number,Requested_Number,Location,date,time,status,operator,in_tech,hlr_tech,Address,NIN,active,sales_channel,receipt_no,nationality,DOB FROM sim_replacement WHERE id = '$checkbox' LIMIT 1";
+
+mysql_query($sql);
+
+//$id = $_GET["id"];
+
+$order = "DELETE FROM sim_replacement WHERE id = '$checkbox' LIMIT 1"; //  WHERE"; // ID = '$id'";
+ mysql_query($order);
+ ++$i;
+ } 
+ header("location:Replacememt_table.php");
+ ?>   
+ 

@@ -1,0 +1,87 @@
+
+/* Layout Stylesheet */ 
+
+body {
+ margin:20px;
+ width:97%;
+ background:;
+ color: #F68D23;
+ text-align:center;
+ padding:0;
+ background: url(../images/343.jpg);
+
+ }
+
+#outer {
+ text-align:left;
+ border:2px solid #000000;
+ width:100%;
+ margin:auto;
+ }
+
+#hdr {
+ height:140px;
+ width:100%;
+ background: url(../images/logo.jpg) left top no-repeat;
+ }
+ background:;
+ color:;
+ }
+
+#bar {
+ height:15px;
+ background:;
+ color: #333333;
+ border:solid #000000;	
+ border-width:1px 0 1px 0;
+ width:100%;
+ }
+
+#bodyblock {
+ position:relative;
+ background: #dcdcdc;
+ color: #333333;
+ width:750px;
+ padding:0;
+ }
+
+#l-col {
+ float:left;
+ background:#dcdcdc;
+ color: #333333;
+ width:240px;
+ height:552px
+ }
+
+#cont {
+ width:100%;
+ background:#ffffff;
+ color: #333333;
+ border:solid #000000;	
+ border-width:0 0 0 1px;
+ text-align:left;
+ height:675px;
+ }
+
+#cont1 {
+ width:100%;
+ background:#ffffff;
+ color: #333333;
+ border:solid #000000;
+ border-width:0 0 0 1px;
+ text-align:left;
+ height:515px;
+ }
+
+#ftr {
+ height:40px;
+ background:#c0c0c0;
+ color: #333333;
+ border:solid black;
+ border-width:1px 0 0 0;
+ margin:0;
+ width:100%;
+ }
+#banner {
+ 
+ }

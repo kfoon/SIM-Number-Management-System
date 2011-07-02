@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Replacement Records</title>
+		<script type="text/javascript" src="../JS/jquery.min.js"></script>
+		<script type="text/javascript" src="../JS/jquery.quicksearch.js"></script>
+		<link rel="stylesheet" type="text/css"href="../Css/2c-hd-ft-fixed-layout.css" />
+		<script type="text/javascript">
+			$(document).ready(function () {
+				$("#id_search").quicksearch("table tbody tr", {
+					noResults: '#noresults',
+					stripeRows: ['odd', 'even'],
+					loader: 'span.loading'
+				});
+			});
+		</script>
+		<link rel="stylesheet" href="../Css/style1.css" type="text/css" media="all" title="" />
+	</head>
+<body>
+<div id="outer">
+<div id="hdr" align="center">
+</div>
+<div id="bar">
+<span style="padding:3px;font-size:11px;"><script type='text/javascript' src='../JS/Menu.js'></script></span>
+</div>
+<div id="cont">
+<div id="banner" align="center">	
+</div>
+<div id="main">
+		<form action="#">
+			<fieldset>
+				<input type="text" name="search" value="" id="id_search" /> <span class="loading">Loading...</span>
+			</fieldset>
+		</form>	
+		
+<table id="matrix" cellpadding="0" cellspacing="0" width=''>
+<thead>
+<tr>
+			<tr>
+			<th>Customer Name</th>
+			<th>New Sim</th>
+			<th>Old Sim</th>
+			<th>Date Lost</th>
+			<th>Reference #</th>
+			<th>Reference #</th>
+			<th>Reference #</th>
+			<th>Operator</th>
+			<th>switch tech</th>
+ 			<th>Date</th>
+ 			<th>Time</th>
+ 			<th>Status</th>
+
+		</tr>
+</thead>
+
+<tbody>
+	<tr id="noresults">
+		<td colspan="6">No Results</td>
+	</tr>
+	
+<?php
+ include ("../Config/db.inc.php");
+//Sarting pagination 
+//Get the required page number from the $_GET array
+if (isset($_GET['pageno'])) {
+  $pageno = $_GET['pageno']; 
+   } else {
+    $pageno = 1;
+     } // if
+             
+             //Get the number of total rows in the database
+             $query = "SELECT count(*) FROM sim_replacement_history";
+             $result = mysql_query($query);
+             $query_data = mysql_fetch_row($result);
+             $numrows = $query_data[0];
+             
+             //Calculate the number of $lastpage
+             $rows_per_page = 20;
+             $lastpage      = ceil($numrows/$rows_per_page);
+             
+  //Ensure taht $pageno is within range
+  $pageno = (int)$pageno;
+  if ($pageno > $lastpage) {
+     $pageno = $lastpage;   
+    } // if
+    if ($pageno < 1) {
+    $pageno = 1;      
+    } // if
+                      
+    //Construct LIMIT clause
+    $limit = 'LIMIT ' .($pageno - 1) * $rows_per_page .',' .$rows_per_page;
+ $cugquery =  "SELECT * FROM sim_replacement_history ORDER BY date_created DESC, time DESC $limit";
+ $queryresult = mysql_query($cugquery);
+ 
+  $i = 0;
+   while($data = mysql_fetch_array($queryresult)){
+      echo("<tr>
+      <td><img src ='../images/128px-User.svg.png'></img> <font face='Verdana' size='2'>$data[Customer_Name]</td>
+       <td><font face='Verdana' size='2'>$data[new_sim]</td>
+      <td><font face='Verdana' size='2'>$data[lost_sim]</td>
+      <td><font face='Verdana' size='2'>$data[date_lost]</td>
+      <td><font face='Verdana' size='2'>$data[ref_No1]</td>
+      <td><font face='Verdana' size='2'>$data[ref_No2]</td>
+      <td><font face='Verdana' size='2'>$data[ref_No3]</td>
+      <td><font face='Verdana' size='2'>$data[user]</td>
+	<td><font face='Verdana' size='2'>$data[switch_tech]</td>
+      <td><font face='Verdana' size='2'>$data[date_created]
+      <td><font face='Verdana' size='2'>$data[time]
+      <td><font face='Verdana' size='2'>$data[status]
+      </td></tr>");
+      }
+       $i++;
+      ?>	
+</tbody>
+</table>
+<div id ="next" align="center">
+<?php
+    if ($pageno == 1) {
+    echo " FIRST PREV ";
+    } else {
+    echo " <a href='{$_SERVER['PHP_SELF']}?pageno=1'>FIRST</a> ";
+    $prevpage = $pageno-1;
+    echo " <a href='{$_SERVER['PHP_SELF']}?pageno=$prevpage'>PREV</a> ";
+    } // if
+                  
+    //Inform user of current position
+    echo " [ Page $pageno of $lastpage  ] ";
+                  
+    //Link for the next pages
+    if ($pageno == $lastpage) {
+    echo " NEXT LAST ";
+    } else {
+    $nextpage = $pageno+1;
+    echo " <a href='{$_SERVER['PHP_SELF']}?pageno=$nextpage'>NEXT</a> ";
+    echo " <a href='{$_SERVER['PHP_SELF']}?pageno=$lastpage'>LAST</a> ";
+    } // if
+    ?>
+    </div>
+</div>
+</div>
+<br/>
+<div id="ftr" align="center">
+<center><font size=1 color="#000000" face="Arial">Qcell Number Change Database  - Second Edition<br>Powered by 
+<b><a href="http://www.qcell.gm">QCell Ltd.</a></b>
+<br>The Gambia's Only 3G Operator<br></font> </center>
+</div>
+</div>
+</html>

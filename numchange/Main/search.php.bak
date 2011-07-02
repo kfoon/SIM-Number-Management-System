@@ -1,0 +1,195 @@
+<?php
+require_once('../login/auth.php');
+?>
+<script type="text/javascript">
+var table = document.getElementById("table");
+function validateform(){
+ var table = document.getElementById("table");
+ if (table.value == ""){
+   alert("You most select a table to query from!! \n");
+   UserName.focus();
+   UserName.select();
+   return false;
+  }
+           
+}
+function disablefield()
+{
+  if (document.search.table.value == "numchange") {
+  document.search.ExistingNo.disabled=false;
+  document.search.RequestedNo.disabled=false;
+  document.search.NewSim.disabled=true;
+  document.search.LostSim.disabled=true;
+  document.search.Location.disabled=false;
+  }
+  if (document.search.table.value == "replacement" ) {
+  document.search.ExistingNo.disabled=true;
+  document.search.RequestedNo.disabled=true;
+  document.search.NewSim.disabled=false;          
+  document.search.LostSim.disabled=false;   
+  }                  
+ } 
+</script>
+<link href="../loginmodule.css" rel="stylesheet" type="text/css" />
+<?php
+include ("../login/db.inc.php");
+?>
+
+<form enctype='multipart/form-data' action='search-result.php' method='post' name='search' id='search' onsubmit='return validateform();'>
+<table border="1" cellspacing="1" style="border-collapse: collapse" bordercolor="#000066" width="95%" cellpadding="5">
+<tr>
+<td colspan="3" bgcolor="#B5CBEF" height="17" width="100%" bordercolor="#FFFFFF" background="../images/tile_back.gif">
+<p align="left\><b><font face="Verdana" size="2" color="#FFFFFF"><img border="0" src="../images/nav_m.gif" width="8" height="8">
+<font face='Verdana' size=2 color='#FFFFFF'><b>
+<?php $level =  $_SESSION['SESS_LEVEL_PERM'];?>
+<a href="../login/member-profile.php">My Profile</a> | <a href="../login/logout.php">Logout</a> |
+<a href="../login/member-index.php">New Request</a>  |
+<a href=" ../main/summary.php">Summary</a>  |
+<a href=" ../main/in_request.php">IN Request Table</a>  | 
+<a href=" ../main/hlr_request.php">HLR Request Table</a> |
+<a href=" ../main/changed.php">Changed Report</a>
+
+<!- You can add a form title here -->
+<title>Qcell - Number Change </title>
+&nbsp;
+</font><font face="Verdana" size="2" color="#000066"> </font></b></td>
+</tr><tr><td colspan="3" bgcolor="#B5CBEF" height="16" width="100%" bordercolor="#FFFFFF" background="tile_sub.gif"><font size="2" face="Verdana"><b><font face="Verdana" size="2" color="#000066">
+<!- You can add a brief form description here-->
+<img alt="logo" src="../images/QCELL.jpg"  width="150" height="75"/>
+&nbsp;
+</font></b></font></td></tr><tr><td colspan="3" bgcolor="#D6DFEF" height="16" width="100%" bordercolor="#FFFFFF">
+<font size="1" face="Verdana">Your most select a table to search from*</font></td></tr><tr><td  width="55">
+<img border="0" src="../images/bc_new.gif" width="28" height="28"></td><td width="189" >
+<font face="Verdana" size="2">Select Table</td>
+<td  width="469" >
+<font face="Verdana"><select name='table' id='table' onChange='disablefield();'>
+<option value=''>--Select--
+<option value='numchange'>Num Change
+<option value='replacement'>Replacment
+</select>
+</td></tr><tr><td  width="55">
+<img border="0" src="../images/bc_new.gif" width="28" height="28"></td><td width="189" >
+<font face="Verdana" size="2">Customer Name</td>
+<td  width="469" >
+<font face="Verdana"><input type=text name='CustomerName' id='CustomerName'> 
+</td></tr><tr><td  width="55" >
+<img border="0" src="../images/bc_new.gif" width="28" height="28"></td><td  width="189" >
+<font face="Verdana" size="2">Address</td>
+<td  width="469" >
+<font face="Verdana"><input type=text name='Address' id='Address'></td></tr><tr><td  width="55">
+<img border="0" src="../images/bc_new.gif" width="28" height="28"></td><td  width="189" >
+<font face="Verdana" size="2">Existing No.</td>
+<td width="469" >
+<font face="Verdana"><input type=text name='ExistingNo' id='ExistingNo'>
+</td></tr><tr><td  width="55" >
+<img border="0" src="../images/bc_new.gif" width="28" height="28"></td><td  width="189" >
+<font face="Verdana" size="2">Requested No.</td>
+<td  width="469" >
+<font face="Verdana"><input type=text name='RequestedNo' id='RequestedNo'>
+</td></tr><tr><td  width="55" >
+<img border="0" src="../images/bc_new.gif" width="28" height="28"></td><td  width="189">
+<font face="Verdana" size="2">New Sim No.</td>
+<td  width="469" >
+<font face="Verdana"><input type=text name='NewSim' id='NewSim'></td></tr><tr><td  width="55" >
+<img border="0" src="../images/bc_new.gif" width="28" height="28"></td><td  width="189" >
+<font face="Verdana" size="2">Lost Sim</td>
+<td  width="469" >
+<font face="Verdana"><input type=text name='LostSim' id='LostSim'>
+</td></tr><tr><td  width="55" >
+<img border="0" src="../images/bc_new.gif" width="28" height="28"></td><td  width="189" >
+<font face="Verdana" size="2">Location</td>
+<td  width="469" >
+<font face="Verdana"><select name='Location' id='Location'>
+<option value=''>--Select--
+<option value='Aisha Marie Cafe'>Aisha Marie Cafe
+<option value='Arch Cafe'>Arch Cafe 
+<option value='Bakau Cafe'>Bakau Cafe
+<option value='Banjul Cafe'>Banjul Cafe
+<option value='Barra Cafe'>Barra Cafe  
+<option value='Churchills Cafe'>Churchills Cafe
+<option value='HeadOffice Cafe'>HeadOffice Cafe
+<option value='Kotu Cafe'>Kotu Cafe
+<option value='Lamin Cafe'>Lamin Cafe
+<option value='Qcell HeadOffice'>Qcell HeadOffice
+<option value='Senegambia Cafe'>Senegambia Cafe  
+<option value='Westfield Cafe'>Westfield Cafe    
+<option value='Brikama'>Brikama
+<option value='Brikama Ba'>Brikama Ba
+<option value='Farafenni'>Farafenni
+<option value='Jarra Soma'>Jarra Soma
+<option value='Basse 1'>Basse 1
+<option value='Basse 2'>Basse 2
+</select></td></tr>
+<tr><td  width="55" >
+<img border="0" src="../images/bc_new.gif" width="28" height="28"></td><td  width="189" >
+<font face="Verdana" size="2">User</td>
+<td  width="469" >
+<font face="Verdana">
+<?php 
+$cugquery = "SELECT count(*) AS num FROM  members";
+$queryresult = mysql_query($cugquery);
+$row = mysql_fetch_array($queryresult);
+
+
+echo" <select name=\"member\" id=\"member\">  ";
+$results= mysql_query("SELECT member_id, login, permission FROM members Order by login asc");
+$id = "member_id";
+$name = "login";
+$permission = "permission";
+echo mysql_error();
+
+if (mysql_Numrows($results)>0)
+{
+$numrows=mysql_NumRows($results);
+ echo "<option value=''>--Select--</option>";
+$x=0; 
+  while ($x<$numrows){   //loop through the records
+  $theId=mysql_result($results,$x,$id);                 //place each record in the variable everytime we loop
+  $theName=mysql_result($results,$x,$name);
+  $theRental=mysql_result($results,$x,$permission);
+  echo "<option value=\"$theName\">$theName</option>\n";  //and place it in the select
+  $x++;
+  }
+  }
+  echo "</select>";  //close the select
+                                         
+                                                           
+    ?>    
+</td></tr>
+<tr><td  width="55" >
+<img border="0" src="../images/bc_new.gif" width="28" height="28"></td><td  width="189" >
+<font face="Verdana" size="2">Date</td>
+<td  width="469" >
+<font face="Verdana">
+<select name='Month'>
+<option value=''>--Select--
+<option value='<?php echo Date(m); ?>'>Jan
+<option value='<?php echo Date(m); ?>'>Feb
+<option value='<?php echo Date(m); ?>'>Mar
+<option value='<?php echo Date(m); ?>'>Apr
+<option value='<?php echo Date(m); ?>'>May
+<option value='<?php echo Date(m); ?>'>Jun
+<option value='<?php echo Date(m); ?>'>Jul
+<option value='<?php echo Date(m); ?>'>Aug
+<option value='<?php echo Date(m); ?>'>Sep
+<option value='<?php echo Date(m); ?>'>Oct
+<option value='<?php echo Date(m); ?>'>Nov
+<option value='<?php echo Date(m); ?>'>Dec
+</select> 
+&nbsp;&nbsp;
+<select name='Year'>
+<option value=''>--Select--
+<option value='2009'>2009
+<option value='2010'>2010
+<option value='2011'>2011
+<option value='2012'>2012
+</select>
+</td></tr><tr><td colspan="3" bgcolor="#B5CBEF" height="25" width="737" background="tile_sub.gif"><p align="center"><font face="Verdana" size="2">
+<input type=submit value='Search'>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<input type=reset value='Reset Form'></font></td></tr></table></form>
+<br><center><font size=1 color="#000000" face="Arial">Qcell CUG Database  - FIRST Editi
+<b><a href="http://www.qcell.gm">Qcell Ltd.</a></b>
+<br>The Gambia's Only 3G Operator<br></font> </center>
+ 
+  
